@@ -92,6 +92,28 @@ foreach ($f in $AgentFiles) {
     }
 }
 
+# --- 4b. Instalar slash commands ---
+$CommandsSourceDir = Join-Path $ScriptRoot "commands"
+if (Test-Path $CommandsSourceDir) {
+    if ($Scope -eq "user") {
+        $CommandsTargetDir = Join-Path $env:USERPROFILE ".claude\commands"
+    } else {
+        $CommandsTargetDir = Join-Path (Get-Location) ".claude\commands"
+    }
+    if (-not (Test-Path $CommandsTargetDir)) {
+        New-Item -ItemType Directory -Path $CommandsTargetDir -Force | Out-Null
+    }
+    $CommandFiles = Get-ChildItem -Path $CommandsSourceDir -Filter "*.md" |
+                    Where-Object { $_.Name -ne "README.md" }
+    Write-Host ""
+    Write-Host "Instalando slash commands em: $CommandsTargetDir" -ForegroundColor Cyan
+    foreach ($f in $CommandFiles) {
+        $dest = Join-Path $CommandsTargetDir $f.Name
+        Copy-Item $f.FullName $dest -Force
+        Write-Host "[install] /$($f.BaseName)" -ForegroundColor Green
+    }
+}
+
 # --- 5. Templates de memoria (opcional) ---
 if (-not $NoTemplates) {
     Write-Host ""

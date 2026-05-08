@@ -46,22 +46,58 @@ Detalhamento completo em [`agents/README.md`](./agents/README.md).
 
 ## Instalação rápida
 
-### Windows (PowerShell)
+### ⚡ Modo recomendado — comando `/study-setup`
+
+Se você já usa Claude Code, só precisa baixar **um único arquivo** e
+rodar `/study-setup` em qualquer sessão. O comando faz tudo: clona o
+repo, instala os 9 agentes, cria a árvore de pastas PARA + Zettelkasten,
+inicializa `memory/` com seu tema/norma, e te dá um tour pelos agentes.
+
+**Mac/Linux**:
+```bash
+mkdir -p ~/.claude/commands && \
+curl -L https://raw.githubusercontent.com/byfabioviana/agent-study-assistant/main/commands/study-setup.md \
+  -o ~/.claude/commands/study-setup.md
+```
+
+**Windows PowerShell**:
+```powershell
+New-Item -ItemType Directory -Path "$env:USERPROFILE\.claude\commands" -Force | Out-Null
+Invoke-WebRequest `
+  -Uri "https://raw.githubusercontent.com/byfabioviana/agent-study-assistant/main/commands/study-setup.md" `
+  -OutFile "$env:USERPROFILE\.claude\commands\study-setup.md"
+```
+
+Depois, abra **qualquer sessão do Claude Code** e digite:
+
+```
+/study-setup
+```
+
+O comando é interativo, leva ~5 minutos e termina com o tour pelos
+agentes. Use `/study-setup --update` para atualizar e
+`/study-setup --check` para validar.
+
+### Instalação manual (alternativa)
+
+Se preferir clonar o repo inteiro e rodar o instalador shell:
+
+**Windows (PowerShell)**:
 ```powershell
 git clone https://github.com/byfabioviana/agent-study-assistant.git
 cd agent-study-assistant
 ./install.ps1
 ```
 
-### Mac / Linux
+**Mac / Linux**:
 ```bash
 git clone https://github.com/byfabioviana/agent-study-assistant.git
 cd agent-study-assistant
 chmod +x install.sh && ./install.sh
 ```
 
-O instalador copia os 9 agentes para `~/.claude/agents/` (escopo de
-usuário) ou para `.claude/agents/` (escopo de projeto), conforme escolha.
+O instalador copia agentes (`~/.claude/agents/`) e comandos
+(`~/.claude/commands/`), com confirmação para cada sobrescrita.
 
 Guia detalhado em [`INSTALL.md`](./INSTALL.md).
 

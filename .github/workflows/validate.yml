@@ -64,6 +64,61 @@ jobs:
               print(f"OK — {count} agentes validados")
           PY
 
+  validate-commands:
+    name: Validate slash commands frontmatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pyyaml
+        run: pip install pyyaml
+
+      - name: Validate each command has required frontmatter
+        run: |
+          python <<'PY'
+          import os, sys, yaml, re
+          required = {"description", "allowed-tools"}
+          errors = []
+          cmd_dir = "commands"
+          if not os.path.isdir(cmd_dir):
+              print("Pasta commands/ nao existe — pulando")
+              sys.exit(0)
+          for fname in sorted(os.listdir(cmd_dir)):
+              if not fname.endswith(".md") or fname == "README.md":
+                  continue
+              path = os.path.join(cmd_dir, fname)
+              with open(path, encoding="utf-8") as f:
+                  content = f.read()
+              m = re.match(r"^---\n(.*?)\n---", content, re.DOTALL)
+              if not m:
+                  errors.append(f"{fname}: missing YAML frontmatter")
+                  continue
+              try:
+                  data = yaml.safe_load(m.group(1))
+              except yaml.YAMLError as e:
+                  errors.append(f"{fname}: invalid YAML — {e}")
+                  continue
+              missing = required - set(data.keys())
+              if missing:
+                  errors.append(f"{fname}: missing keys {missing}")
+              if not isinstance(data.get("allowed-tools"), list):
+                  errors.append(f"{fname}: 'allowed-tools' must be a list")
+          if errors:
+              print("FAIL")
+              for e in errors:
+                  print(f"  - {e}")
+              sys.exit(1)
+          else:
+              count = len([f for f in os.listdir(cmd_dir)
+                           if f.endswith(".md") and f != "README.md"])
+              print(f"OK — {count} comandos validados")
+          PY
+
   validate-pptx-script:
     name: Validate PPTX generation
     runs-on: ubuntu-latest

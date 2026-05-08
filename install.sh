@@ -115,6 +115,27 @@ for f in "${AGENT_FILES[@]}"; do
     fi
 done
 
+# --- 3b. instalar slash commands ---
+COMMANDS_SOURCE="$SCRIPT_DIR/commands"
+if [[ -d "$COMMANDS_SOURCE" ]]; then
+    if [[ "$SCOPE" == "user" ]]; then
+        COMMANDS_TARGET="$HOME/.claude/commands"
+    else
+        COMMANDS_TARGET="$(pwd)/.claude/commands"
+    fi
+    mkdir -p "$COMMANDS_TARGET"
+    echo ""
+    echo -e "${CYAN}Instalando slash commands em: $COMMANDS_TARGET${NC}"
+    for c in "$COMMANDS_SOURCE"/*.md; do
+        [[ -f "$c" ]] || continue
+        cname="$(basename "$c")"
+        [[ "$cname" == "README.md" ]] && continue
+        cp "$c" "$COMMANDS_TARGET/$cname"
+        cbase="${cname%.md}"
+        echo -e "${GREEN}[install]${NC} /$cbase"
+    done
+fi
+
 # --- 4. templates de memoria ---
 if [[ $NO_TEMPLATES -eq 0 ]]; then
     echo ""

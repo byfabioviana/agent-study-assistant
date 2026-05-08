@@ -49,6 +49,28 @@ done
 
 rm -f "$TARGET_DIR/.agent-study-assistant.json"
 
+# Slash commands
+COMMANDS_SOURCE="$SCRIPT_DIR/commands"
+if [[ -d "$COMMANDS_SOURCE" ]]; then
+    if [[ "$SCOPE" == "user" ]]; then
+        COMMANDS_TARGET="$HOME/.claude/commands"
+    else
+        COMMANDS_TARGET="$(pwd)/.claude/commands"
+    fi
+    if [[ -d "$COMMANDS_TARGET" ]]; then
+        for c in "$COMMANDS_SOURCE"/*.md; do
+            [[ -f "$c" ]] || continue
+            cname="$(basename "$c")"
+            [[ "$cname" == "README.md" ]] && continue
+            if [[ -f "$COMMANDS_TARGET/$cname" ]]; then
+                rm -f "$COMMANDS_TARGET/$cname"
+                cbase="${cname%.md}"
+                echo "[remove] /$cbase"
+            fi
+        done
+    fi
+fi
+
 echo ""
 echo "Removidos: $REMOVED agentes"
 echo "Seu memory/ e drafts continuam intactos."

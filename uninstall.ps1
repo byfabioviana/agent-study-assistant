@@ -50,6 +50,28 @@ foreach ($name in $AgentNames) {
 $marker = Join-Path $TargetDir ".agent-study-assistant.json"
 if (Test-Path $marker) { Remove-Item $marker -Force }
 
+# Slash commands
+$CommandsSourceDir = Join-Path $ScriptRoot "commands"
+if (Test-Path $CommandsSourceDir) {
+    if ($Scope -eq "user") {
+        $CommandsTargetDir = Join-Path $env:USERPROFILE ".claude\commands"
+    } else {
+        $CommandsTargetDir = Join-Path (Get-Location) ".claude\commands"
+    }
+    if (Test-Path $CommandsTargetDir) {
+        $CommandNames = Get-ChildItem -Path $CommandsSourceDir -Filter "*.md" |
+                        Where-Object { $_.Name -ne "README.md" } |
+                        Select-Object -ExpandProperty Name
+        foreach ($name in $CommandNames) {
+            $cpath = Join-Path $CommandsTargetDir $name
+            if (Test-Path $cpath) {
+                Remove-Item $cpath -Force
+                Write-Host "[remove] /$($name.Replace('.md',''))" -ForegroundColor Yellow
+            }
+        }
+    }
+}
+
 Write-Host ""
 Write-Host "Removidos: $Removed agentes" -ForegroundColor Green
 Write-Host "Seu memory/ e drafts continuam intactos." -ForegroundColor DarkGray
