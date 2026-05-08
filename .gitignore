@@ -1,0 +1,74 @@
+# --- Sistema operacional ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# --- Editores / IDEs ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Claude Code (parcial) ---
+# Mantemos .claude/plan/ e .claude/agents/ versionados.
+# Settings locais e caches devem ficar fora.
+.claude/settings.local.json
+.claude/cache/
+.claude/history.jsonl
+.claude/file-history/
+.claude/session-data/
+.claude/projects/
+.claude/debug/
+.claude/metrics/
+.claude/cost-tracker.log
+.claude/bash-commands.log
+
+# --- Memoria do USUARIO (sensivel — nunca commitar) ---
+# memory/ contem dados pessoais do aluno (perfil de voz, tema da tese)
+# Templates ficam em memory-templates/ — esses sim sao versionados.
+memory/
+
+# --- Conteudo do aluno (privado por design) ---
+notes/
+references/PDFs/
+references/biblio.bib
+drafts/
+research/
+01_Projects/
+02_Areas/
+03_Resources/
+04_Archive/
+99_Sandbox/
+
+# --- Outputs temporarios ---
+.tmp_*
+*.tmp
+*.log
+*.bak
+
+# --- Arquivos com segredos (defesa em profundidade) ---
+.env
+.env.local
+*.key
+*.pem
+secrets.json
+credentials.json
+
+# --- Saidas geradas que nao precisam de versao ---
+# (mantemos os PPTX em docs/ porque sao entregaveis do framework)
+build/
+dist/
+*.egg

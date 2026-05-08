@@ -1,0 +1,51 @@
+---
+type: citation_style
+norm: ABNT-NBR-6023
+norm_year: 2018
+last_review: 2026-05-08
+---
+
+# Norma de Citação
+
+## Norma adotada
+**ABNT NBR 6023:2018** *(altere para APA 7, Vancouver, Chicago, ISO 690 conforme exigência da sua instituição)*
+
+## Justificativa
+{Por que esta norma? Exigência do programa? Tradição da área?}
+
+## Convenções específicas adotadas
+- **Idioma das referências**: {português + originais em inglês}
+- **Ordem em referências múltiplas no corpo**: {ordem alfabética / cronológica}
+- **Citações diretas longas**: recuo de 4 cm, sem aspas, fonte 10pt (ABNT)
+- **Sublinhado vs itálico**: itálico em todos os títulos de obras
+- **et al.**: a partir de 3+ autores
+- **Páginas em citações indiretas**: {opcional / obrigatório por norma do programa}
+
+## Formato no corpo do texto
+
+### ABNT
+- **Direta**: "..." (FOUCAULT, 1987, p. 145)
+- **Indireta**: (FOUCAULT, 1987)
+- **Autor no texto**: Foucault (1987) argumenta que...
+- **Múltiplos**: (FOUCAULT, 1987; DELEUZE, 1992)
+- **3+ autores**: (SILVA et al., 2020)
+
+### APA 7 (se aplicável)
+- **Direta**: "..." (Foucault, 1987, p. 145)
+- **Indireta**: (Foucault, 1987)
+- **Múltiplos**: (Foucault, 1987; Deleuze, 1992)
+
+## Modelo de referência completa
+
+### Livro (ABNT)
+SOBRENOME, Nome. **Título**: subtítulo. Edição. Cidade: Editora, ano.
+
+### Artigo (ABNT)
+SOBRENOME, Nome. Título do artigo. **Periódico**, Cidade, v. X, n. Y, p. AA-BB, mês ano. DOI: ...
+
+### Tese / dissertação (ABNT)
+SOBRENOME, Nome. **Título**. Ano. Tese (Doutorado em Área) - Programa, Universidade, Cidade, ano.
+
+## Gerenciador
+- **Arquivo .bib**: `references/biblio.bib`
+- **Mantido por**: agente `citation-manager`

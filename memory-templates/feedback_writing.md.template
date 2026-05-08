@@ -1,0 +1,42 @@
+---
+type: feedback_log
+last_entry: 2026-05-08
+---
+
+# Feedback Acumulado de Escrita
+
+> Log das correções e padrões que você acumula ao longo do mestrado.
+> Cada agente lê este arquivo antes de gerar texto. **Atualize sempre
+> que repetir uma correção** — assim o agente aprende.
+
+## Como adicionar entrada
+
+Sempre que corrigir o agente sobre algo, adicione:
+
+```markdown
+## YYYY-MM-DD — Curto descritor
+
+**Regra**: {o que NUNCA / SEMPRE fazer}
+**Por quê**: {motivo concreto, idealmente com exemplo do que deu errado}
+**Como aplicar**: {quando esta regra entra em ação}
+```
+
+## Exemplo (apague depois de ter os seus)
+
+## 2026-05-08 — Sem "é importante notar"
+
+**Regra**: Nunca usar "é importante notar que" como abertura de frase
+ou parágrafo.
+
+**Por quê**: É um clichê de IA detectado por todos os classificadores
+modernos. Além disso, se uma afirmação precisa de "é importante notar"
+para chamar atenção, ela provavelmente é fraca. Afirmações fortes não
+precisam ser anunciadas.
+
+**Como aplicar**: Em qualquer reescrita do `voice-humanizer` ou redação
+do `academic-writer`, banir esta construção. Substituir por afirmação
+direta sem hedge.
+
+---
+
+## (suas entradas começam aqui)

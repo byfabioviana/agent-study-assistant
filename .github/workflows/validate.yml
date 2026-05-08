@@ -1,0 +1,111 @@
+name: Validate
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  validate-agents:
+    name: Validate agent frontmatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pyyaml
+        run: pip install pyyaml
+
+      - name: Validate each agent has required frontmatter
+        run: |
+          python <<'PY'
+          import os, sys, yaml, re
+          required = {"name", "description", "tools", "model"}
+          allowed_models = {"opus", "sonnet", "haiku"}
+          errors = []
+          agent_dir = "agents"
+          for fname in sorted(os.listdir(agent_dir)):
+              if not fname.endswith(".md") or fname == "README.md":
+                  continue
+              path = os.path.join(agent_dir, fname)
+              with open(path, encoding="utf-8") as f:
+                  content = f.read()
+              m = re.match(r"^---\n(.*?)\n---", content, re.DOTALL)
+              if not m:
+                  errors.append(f"{fname}: missing YAML frontmatter")
+                  continue
+              try:
+                  data = yaml.safe_load(m.group(1))
+              except yaml.YAMLError as e:
+                  errors.append(f"{fname}: invalid YAML — {e}")
+                  continue
+              missing = required - set(data.keys())
+              if missing:
+                  errors.append(f"{fname}: missing keys {missing}")
+              if data.get("model") not in allowed_models:
+                  errors.append(f"{fname}: invalid model '{data.get('model')}'")
+              if not isinstance(data.get("tools"), list):
+                  errors.append(f"{fname}: 'tools' must be a list")
+              if data.get("name") and data["name"] != fname.replace(".md", ""):
+                  errors.append(f"{fname}: name '{data['name']}' != filename")
+          if errors:
+              print("FAIL")
+              for e in errors:
+                  print(f"  - {e}")
+              sys.exit(1)
+          else:
+              count = len([f for f in os.listdir(agent_dir)
+                           if f.endswith(".md") and f != "README.md"])
+              print(f"OK — {count} agentes validados")
+          PY
+
+  validate-pptx-script:
+    name: Validate PPTX generation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install python-pptx
+        run: pip install python-pptx
+
+      - name: Run PPTX generator (without logos)
+        run: |
+          python scripts/generate_pptx_verticalis.py
+          ls -la docs/curadoria-verticalis-deck.pptx
+
+      - name: Upload generated deck as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: curadoria-verticalis-deck
+          path: docs/curadoria-verticalis-deck.pptx
+          retention-days: 7
+
+  markdown-lint:
+    name: Lint markdown
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for broken internal links (basic)
+        run: |
+          ! grep -rIE '\]\(\./[^)]+\)' --include='*.md' agents/ docs/ | \
+            while read line; do
+              file=$(echo "$line" | cut -d: -f1)
+              link=$(echo "$line" | grep -oE '\]\(\./[^)]+\)' | sed 's/](\.\///; s/)$//')
+              dir=$(dirname "$file")
+              target="$dir/$link"
+              if [ ! -e "$target" ]; then
+                echo "BROKEN: $file -> $link"
+                exit 1
+              fi
+            done
+          echo "Links OK"

@@ -1,0 +1,28 @@
+# Garantir line endings consistentes
+* text=auto eol=lf
+
+# Scripts shell sempre LF
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Scripts PowerShell e batch ficam CRLF (funcionam melhor no Windows)
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Markdown sempre LF
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Python
+*.py text eol=lf
+
+# Binarios
+*.pptx binary
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary

@@ -1,0 +1,57 @@
+---
+type: methodology
+status: a-definir
+last_review: 2026-05-08
+---
+
+# Desenho Metodológico
+
+> Preencha em parceria com o agente `methodology-advisor`.
+
+## Paradigma
+- {positivista | interpretativista | crítico | pragmático}
+- **Justificativa epistemológica**: {por que este paradigma}
+
+## Abordagem
+- {qualitativa | quantitativa | mista}
+
+## Estratégia / delineamento
+{ex: estudo de caso múltiplo, survey transversal, etnografia, grounded theory}
+
+## População e amostra
+- **População**: {...}
+- **Amostra**: {tamanho e critérios}
+- **Critérios de inclusão**: {...}
+- **Critérios de exclusão**: {...}
+
+## Instrumentos
+- {entrevista semi-estruturada / questionário / análise documental / ...}
+- **Validação prévia**: {pré-teste, validação por especialistas, etc.}
+
+## Procedimentos de coleta
+{quando, onde, quem coleta, como}
+
+## Procedimentos de análise
+{ex: análise de conteúdo de Bardin, análise temática, regressão multivariada}
+
+## Aspectos éticos
+- [ ] CEP/CONEP submetido (se envolve humanos)
+- [ ] TCLE preparado
+- [ ] Aprovação obtida em: {data}
+
+## Validade
+- **Construto**: {como garante}
+- **Interna**: {como garante}
+- **Externa**: {alcance da generalização}
+- **Confiabilidade / dependabilidade**: {como garante}
+
+## Triangulação
+{quais múltiplas fontes / métodos vão se cruzar}
+
+## Limitações assumidas
+- {limitação 1}
+- {limitação 2}
+
+## Referências metodológicas-chave
+- {Autor (ano). Obra}
+- {Autor (ano). Obra}

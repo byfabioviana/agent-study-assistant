@@ -1,0 +1,61 @@
+---
+voice_version: 0
+calibrated_at: 2026-05-08
+revision_due: 2026-08-08
+status: pendente-questionario
+---
+
+# Perfil de Voz — {Seu Nome}
+
+> **Pendente**: aplicar o questionário de 21 perguntas do agente
+> `voice-humanizer`. Este arquivo será preenchido automaticamente após a
+> primeira sessão de calibração.
+
+## Como ativar a calibração
+
+No Claude Code com o squad instalado:
+
+```
+Acione o agente voice-humanizer para aplicar o questionario de calibracao
+inicial. Estou pronto para responder.
+```
+
+O agente vai:
+1. Aplicar o questionário em 5 blocos (~30 min, pode ser parcial)
+2. Pedir 3 textos seus antigos para análise estilística
+3. Gerar este arquivo preenchido
+
+## Estrutura final (após calibração)
+
+```yaml
+## Identidade academica
+- Area, nivel de formalidade, pessoa preferencial
+- Estilo-modelo, antimodelos
+
+## Repertorio linguistico
+- Palavras-fortes (USE)
+- Palavras banidas (NUNCA)
+- Verbo padrao de posicionamento
+
+## Habitos de escrita
+- Tipo de processo, como reage ao bloqueio
+
+## Ethos
+- Postura discursiva, abordagem ao citar autor
+
+## Padroes extraidos dos textos antigos
+- Burstiness medio, tamanho de sentenca, conectivos favoritos
+
+## Exemplos canonicos
+- 3 paragrafos representativos do estilo do aluno
+
+## Diretrizes operacionais
+- Regras customizadas para reescrita
+```
+
+---
+
+**Importante**: este arquivo é a **fonte de verdade** para os agentes
+`voice-humanizer` e `ai-pattern-auditor`. Quando ele estiver vazio (como
+agora), os agentes operam apenas com regras genéricas e perdem precisão.
+Aplicar o questionário é a primeira ação após instalar o squad.
