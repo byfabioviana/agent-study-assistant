@@ -8,6 +8,13 @@ e este projeto adere a [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ## [Unreleased]
 
 ### Adicionado
+- **`INSTALL-FACIL.md`** — guia de instalação para usuários leigos
+  tecnicamente, com 3 prompts prontos (Padrão, Mínimo, Detalhado) que
+  podem ser copiados e colados diretamente no Claude Code. Inclui
+  prompts adicionais para atualização e tratamento de erros, além
+  de FAQ amigável
+- Link destacado para `INSTALL-FACIL.md` no topo da seção de instalação
+  do `README.md`
 - **Slash command `/study-setup`** — instalador interativo via Claude Code
   que faz tudo em um único comando: clone do repo, instalação dos 9
   agentes, criação da árvore PARA + Zettelkasten, inicialização de

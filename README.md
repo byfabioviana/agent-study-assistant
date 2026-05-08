@@ -44,9 +44,19 @@ Detalhamento completo em [`agents/README.md`](./agents/README.md).
 
 ---
 
-## Instalação rápida
+## Instalação
 
-### ⚡ Modo recomendado — comando `/study-setup`
+### 🚀 Para quem não programa — copie, cole, pronto
+
+**[➡️ Vá direto para o INSTALL-FACIL.md](./INSTALL-FACIL.md)**
+
+É um único arquivo com prompts prontos em português. Você copia, cola
+no Claude Code, responde 3-4 perguntas e está tudo configurado em
+~5 minutos. **Sem terminal, sem comandos técnicos.**
+
+---
+
+### ⚡ Modo intermediário — comando `/study-setup`
 
 Se você já usa Claude Code, só precisa baixar **um único arquivo** e
 rodar `/study-setup` em qualquer sessão. O comando faz tudo: clona o
