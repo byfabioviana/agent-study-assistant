@@ -42,6 +42,18 @@ escrevendo arquivos `.md` com frontmatter YAML como contrato.
 
 Detalhamento completo em [`agents/README.md`](./agents/README.md).
 
+### 📘 Manual de uso
+
+Para o mestrando que **já instalou** o squad e quer saber como acioná-lo
+no dia a dia, há uma apresentação dedicada com framework de 5 fases,
+prompts copiáveis para cada agente e ritmos de uso (diário, semanal,
+sprint, pré-submissão):
+
+→ [`docs/manual-uso-agentes.pptx`](./docs/manual-uso-agentes.pptx) (18 slides)
+
+Inclui decision tree para "qual agente usar quando" e cheat sheet
+imprimível com todos os 9 agentes.
+
 ---
 
 ## Instalação

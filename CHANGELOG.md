@@ -8,6 +8,24 @@ e este projeto adere a [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ## [Unreleased]
 
 ### Adicionado
+- **`docs/manual-uso-agentes.pptx`** — apresentação de 18 slides com
+  manual de uso operacional dos agentes para o mestrando que já
+  instalou o squad. Apresenta o **framework "5 FASES da Jornada"**
+  (Input → Desenho → Digestão → Produção → Polimento), com:
+  - Anatomia de uma chamada de agente (3 formas de acionar + estrutura
+    ideal de prompt)
+  - Slide dedicado por fase com agentes envolvidos, quando acionar,
+    prompt template copiável, saída esperada, próximo passo e
+    anti-padrão a evitar
+  - Quatro ritmos de uso documentados: diário (30 min), semanal
+    (1 h aos domingos), sprint de capítulo (1-2 semanas), pré-submissão
+    (checklist de 10 itens)
+  - Decision tree "qual agente usar quando" com 9 perguntas-chave
+  - Cheat sheet imprimível com todos os agentes em uma página
+- `scripts/generate_pptx_manual_uso.py` — script que gera o manual,
+  reutilizando a paleta Oxford Heritage v2.0 e tipografia (Plus Jakarta
+  Sans + Lora + IBM Plex Mono) já estabelecidas
+- Link destacado para o manual no `README.md`
 - **`INSTALL-FACIL.md`** — guia de instalação para usuários leigos
   tecnicamente, com 3 prompts prontos (Padrão, Mínimo, Detalhado) que
   podem ser copiados e colados diretamente no Claude Code. Inclui
