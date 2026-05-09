@@ -49,7 +49,7 @@ no dia a dia, há uma apresentação dedicada com framework de 5 fases,
 prompts copiáveis para cada agente e ritmos de uso (diário, semanal,
 sprint, pré-submissão):
 
-→ [`docs/manual-uso-agentes.pptx`](./docs/manual-uso-agentes.pptx) (18 slides)
+→ [`docs/manual-uso-agentes.pptx`](./docs/manual-uso-agentes.pptx) (20 slides)
 
 Inclui decision tree para "qual agente usar quando" e cheat sheet
 imprimível com todos os 9 agentes.

@@ -7,8 +7,23 @@ e este projeto adere a [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+### Atualizado
+- **`docs/manual-uso-agentes.pptx`** expandido de 18 para **20 slides**
+  com a adição de:
+  - **Slide 18 — "Roteiro de início" (6 passos)**: cards numerados com
+    tempo estimado (5 min, 30 min, 15 min, 1-2 h, 30 min, 1 semana),
+    ação específica, e critério "PRONTO QUANDO" para cada passo.
+    Cobre validação da instalação, calibração de voz, definição de tema,
+    primeiro ciclo CODE, instalação do Obsidian e primeira mini-seção
+  - **Slide 19 — "Marcos + anti-padrões"**: timeline de 5 marcos
+    (D1 → D30) ao lado de 6 armadilhas a evitar nas primeiras 2 semanas
+  - **Slide 20 (closing) reformulado**: agora apresenta uma única ação
+    imediata (CTA hero com prompt copiável para os próximos 30 minutos)
+    e referência cruzada aos slides 16, 17, 18 e 19
+- Índice (slide 02) atualizado com os capítulos 07 e 08
+
 ### Adicionado
-- **`docs/manual-uso-agentes.pptx`** — apresentação de 18 slides com
+- **`docs/manual-uso-agentes.pptx`** — apresentação de 20 slides com
   manual de uso operacional dos agentes para o mestrando que já
   instalou o squad. Apresenta o **framework "5 FASES da Jornada"**
   (Input → Desenho → Digestão → Produção → Polimento), com:

@@ -149,7 +149,7 @@ def code_block(slide, l, t, w, h, code, sz=11, clr=ACCENT_400, bg=PRIMARY_950, b
 prs = Presentation()
 prs.slide_width = SLIDE_W
 prs.slide_height = SLIDE_H
-TOTAL = 18
+TOTAL = 20
 BLANK = prs.slide_layouts[6]
 
 
@@ -196,6 +196,8 @@ def s02_toc(pg):
         ("04", "Ritmos de uso", "Diario, semanal, sprint, pre-submissao"),
         ("05", "Decision tree", "Qual agente usar quando voce nao sabe"),
         ("06", "Cheat sheet", "Todos os prompts em uma pagina"),
+        ("07", "Roteiro de inicio", "Seus primeiros 6 passos para destravar o uso"),
+        ("08", "Marcos + anti-padroes", "Como saber se esta progredindo"),
     ]
     for i, (num, title, desc) in enumerate(chapters):
         sub = (num == "")
@@ -978,43 +980,203 @@ def s17_cheatsheet(pg):
     footer(s, pg, TOTAL)
 
 
-# ---------------- 18 CLOSING ----------------
+# ---------------- 18 ROTEIRO DE INICIO (6 passos) ----------------
+def s18_roteiro_inicio(pg):
+    s = prs.slides.add_slide(BLANK)
+    set_bg(s, WHITE)
+    left_bar(s)
+    section_label(s, "07  ROTEIRO DE INICIO")
+    txt(s, Inches(1.2), Inches(1.05), Inches(11), Inches(0.7),
+        "Seus primeiros 6 passos, em ordem",
+        FONT_HEADING, 28, NEUTRAL_950, bold=True)
+    txt(s, Inches(1.2), Inches(1.8), Inches(11), Inches(0.4),
+        "Cada passo desbloqueia o seguinte. Pular um deles compromete todos os demais.",
+        FONT_BODY, 13, NEUTRAL_600)
+
+    steps = [
+        ("01", "5 min",   "Validar instalacao",
+         "Rode .\\install.ps1 (Windows) ou ./install.sh (Mac/Linux).\nAbra Claude Code e digite /agents.",
+         "9 agentes aparecem em /agents",
+         DANGER),
+        ("02", "30 min",  "Calibrar voz",
+         "Aplicar questionario do voice-humanizer.\nTer 3 textos antigos seus + 1 mal-avaliado.",
+         "memory/user_writing_voice.md preenchido",
+         ACCENT_600),
+        ("03", "15 min",  "Definir tema real",
+         "Editar memory/project_thesis.md substituindo\nplaceholders pela pergunta de pesquisa real.",
+         "Voce le e identifica pergunta + 3 objetivos",
+         PRIMARY_700),
+        ("04", "1-2 h",   "Primeiro ciclo CODE",
+         "researcher > validator > manager > architect.\n5 fontes ate 5 notas atomicas linkadas.",
+         "biblio.bib com 5 entradas + 3-5 notas",
+         PRIMARY_950),
+        ("05", "30 min",  "Instalar Obsidian",
+         "Opcional mas muito recomendado.\nSeguir docs/obsidian-setup-guide.md.",
+         "Grafo (Ctrl+G) abre com 5+ notas",
+         SUCCESS),
+        ("06", "1 semana","Primeira mini-secao",
+         "Sprint completo: writer > validator > auditor\n> humanizer > peer-reviewer (~1500 palavras).",
+         "Voce defende cada paragrafo em 30s",
+         WARN),
+    ]
+    for i, (num, time, name, desc, ready, color) in enumerate(steps):
+        col = i % 3
+        row = i // 3
+        x = Inches(0.7 + col * 4.2)
+        y = Inches(2.4 + row * 2.25)
+        rounded(s, x, y, Inches(4), Inches(2.1),
+                NEUTRAL_50, line=NEUTRAL_200)
+        bar(s, x, y, Inches(4), Pt(3), clr=color)
+        # number circle
+        rounded(s, x + Inches(0.2), y + Inches(0.18), Inches(0.5), Inches(0.42), color)
+        txt(s, x + Inches(0.2), y + Inches(0.24), Inches(0.5), Inches(0.3),
+            num, FONT_MONO, 12, WHITE, bold=True, align=PP_ALIGN.CENTER)
+        # time badge
+        rounded(s, x + Inches(0.85), y + Inches(0.22), Inches(0.95), Inches(0.32),
+                PRIMARY_950)
+        txt(s, x + Inches(0.85), y + Inches(0.27), Inches(0.95), Inches(0.25),
+            time, FONT_MONO, 9, ACCENT_400, bold=True, align=PP_ALIGN.CENTER)
+        # title
+        txt(s, x + Inches(0.2), y + Inches(0.7), Inches(3.7), Inches(0.35),
+            name, FONT_HEADING, 14, NEUTRAL_950, bold=True)
+        # description
+        txt(s, x + Inches(0.2), y + Inches(1.05), Inches(3.7), Inches(0.6),
+            desc, FONT_BODY, 10, NEUTRAL_700, spacing=14)
+        # ready criterion
+        bar(s, x + Inches(0.2), y + Inches(1.7), Inches(0.4), Pt(1.5), clr=color)
+        txt(s, x + Inches(0.2), y + Inches(1.75), Inches(3.7), Inches(0.3),
+            "PRONTO QUANDO", FONT_HEADING, 8, color, bold=True)
+        txt(s, x + Inches(0.2), y + Inches(1.95), Inches(3.7), Inches(0.3),
+            ready, FONT_MONO, 9, NEUTRAL_700)
+    footer(s, pg, TOTAL, dark=False)
+
+
+# ---------------- 19 MARCOS + ANTI-PADROES ----------------
+def s19_marcos_antipadrao(pg):
+    s = prs.slides.add_slide(BLANK)
+    set_bg(s, PRIMARY_950)
+    chapter_num(s, "08", clr=ACCENT_400)
+    txt(s, Inches(1.2), Inches(1.05), Inches(11), Inches(0.7),
+        "Como saber se voce esta progredindo",
+        FONT_HEADING, 28, WHITE, bold=True)
+    bar(s, Inches(1.2), Inches(1.75), Inches(1.2))
+    txt(s, Inches(1.2), Inches(1.95), Inches(11), Inches(0.4),
+        "Marcos de check-in pessoal + armadilhas comuns das primeiras 2 semanas.",
+        FONT_BODY, 13, NEUTRAL_400)
+
+    # ESQUERDA - Marcos (timeline)
+    rounded(s, Inches(0.7), Inches(2.55), Inches(6), Inches(4.4),
+            PRIMARY_900, line=ACCENT_500, line_w=Pt(0.5))
+    txt(s, Inches(0.9), Inches(2.7), Inches(5.7), Inches(0.35),
+        "✓ MARCOS DE PROGRESSO", FONT_HEADING, 12, ACCENT_500, bold=True)
+    txt(s, Inches(0.9), Inches(3.0), Inches(5.7), Inches(0.3),
+        "Use como check-in pessoal", FONT_BODY, 10, NEUTRAL_400)
+
+    milestones = [
+        ("D1",  "Instalacao validada + voz calibrada",  SUCCESS),
+        ("D3",  "Primeiro ciclo CODE em fontes reais",  ACCENT_500),
+        ("D7",  "Primeira mini-secao (1500 palavras) auditada e humanizada",  ACCENT_500),
+        ("D14", "20+ notas atomicas no Zettelkasten + 1 MOC criado",  ACCENT_500),
+        ("D30", "Capitulo curto (3-5 mil palavras) submetido ao orientador",  ACCENT_500),
+    ]
+    for i, (day, desc, color) in enumerate(milestones):
+        y = Inches(3.5 + i * 0.65)
+        # day badge
+        rounded(s, Inches(0.9), y, Inches(0.65), Inches(0.45), color)
+        txt(s, Inches(0.9), y + Inches(0.08), Inches(0.65), Inches(0.3),
+            day, FONT_MONO, 11, PRIMARY_950, bold=True, align=PP_ALIGN.CENTER)
+        # connection line
+        if i < len(milestones) - 1:
+            filled_rect(s, Inches(1.2), y + Inches(0.45), Pt(2), Inches(0.2),
+                         NEUTRAL_700)
+        # description
+        txt(s, Inches(1.7), y + Inches(0.07), Inches(4.9), Inches(0.4),
+            desc, FONT_BODY, 11, WHITE, spacing=14)
+
+    # DIREITA - Anti-padroes
+    rounded(s, Inches(7.0), Inches(2.55), Inches(6), Inches(4.4),
+            PRIMARY_900, line=DANGER, line_w=Pt(0.5))
+    txt(s, Inches(7.2), Inches(2.7), Inches(5.7), Inches(0.35),
+        "✗ NAO FACA NAS PRIMEIRAS 2 SEMANAS", FONT_HEADING, 12, DANGER, bold=True)
+    txt(s, Inches(7.2), Inches(3.0), Inches(5.7), Inches(0.3),
+        "Erros que comprometem todo o resto",
+        FONT_BODY, 10, NEUTRAL_400)
+
+    antipatterns = [
+        ("Pular calibracao de voz",
+         "Auditor + humanizer perdem 70% da precisao."),
+        ("voice-humanizer antes do auditor",
+         "Reescreve no escuro. Sempre auditor primeiro."),
+        ("Aceitar fontes sem validar",
+         "DOI alucinado escapa direto para a banca."),
+        ("Redigir capitulo inteiro de uma vez",
+         "Quebre em secoes de 1500-2000 palavras."),
+        ("Mexer em memory/ durante execucao",
+         "Pode causar corrupcao de contexto do agente."),
+        ("Nao atualizar feedback_writing.md",
+         "Voce corrige a mesma coisa toda semana."),
+    ]
+    for i, (rule, why) in enumerate(antipatterns):
+        y = Inches(3.4 + i * 0.55)
+        # X badge
+        rounded(s, Inches(7.2), y, Inches(0.32), Inches(0.32), DANGER)
+        txt(s, Inches(7.2), y + Inches(0.02), Inches(0.32), Inches(0.3),
+            "X", FONT_HEADING, 13, WHITE, bold=True, align=PP_ALIGN.CENTER)
+        # rule + why
+        txt(s, Inches(7.65), y, Inches(5.2), Inches(0.3),
+            rule, FONT_HEADING, 11, WHITE, bold=True)
+        txt(s, Inches(7.65), y + Inches(0.27), Inches(5.2), Inches(0.3),
+            why, FONT_BODY, 9, NEUTRAL_400)
+    footer(s, pg, TOTAL)
+
+
+# ---------------- 20 CLOSING ----------------
 def s18_closing(pg):
     s = prs.slides.add_slide(BLANK)
     set_bg(s, PRIMARY_950)
     filled_rect(s, Inches(0), Inches(2.6), SLIDE_W, Inches(0.04), ACCENT_500)
 
     txt(s, Inches(1.2), Inches(1.0), Inches(11), Inches(0.4),
-        "PROXIMOS 3 PASSOS HOJE", FONT_HEADING, 12, ACCENT_400, bold=True)
+        "ACAO PARA OS PROXIMOS 30 MINUTOS",
+        FONT_HEADING, 12, ACCENT_400, bold=True)
     txt(s, Inches(1.2), Inches(1.4), Inches(11), Inches(0.9),
-        "Comece pelo fundamento.", FONT_DISPLAY, 38, WHITE, bold=True)
+        "Comece pelo fundamento.", FONT_DISPLAY, 40, WHITE, bold=True)
     txt(s, Inches(1.2), Inches(2.15), Inches(11), Inches(0.35),
-        "Tres acoes em ordem para destravar todo o resto.",
+        "Voce tem o squad. Voce tem o metodo. Falta dar o primeiro passo.",
         FONT_DISPLAY, 16, ACCENT_400)
 
-    steps = [
-        ("01", "Aplique o questionario do voice-humanizer",
-         "30 minutos. Sem isso, todo polimento opera no escuro.\nCole no Claude Code: 'Acione voice-humanizer para aplicar o questionario inicial'"),
-        ("02", "Defina sua pergunta de pesquisa em memory/project_thesis.md",
-         "Uma frase clara. Se ainda nao tem, acione methodology-advisor para te ajudar a formular."),
-        ("03", "Capture suas primeiras 5 fontes",
-         "academic-researcher busca, source-validator audita, knowledge-architect ficha.\nTeste o ciclo end-to-end com fontes reais do seu tema."),
+    # Hero CTA
+    rounded(s, Inches(1.2), Inches(3.0), Inches(11.5), Inches(1.4),
+            PRIMARY_900, line=ACCENT_500, line_w=Pt(0.75))
+    txt(s, Inches(1.5), Inches(3.15), Inches(11), Inches(0.3),
+        "AGORA  •  abra o Claude Code e cole:", FONT_HEADING, 11, ACCENT_400, bold=True)
+    code_block(s, Inches(1.5), Inches(3.5), Inches(10.9), Inches(0.85),
+                "Acione o voice-humanizer para aplicar o questionario inicial.\n"
+                "Tenho 3 textos antigos meus para analise estilistica.",
+                sz=14, clr=ACCENT_400, bg=PRIMARY_950, border=ACCENT_500)
+
+    # Resumo das opcoes
+    txt(s, Inches(1.2), Inches(4.7), Inches(11), Inches(0.35),
+        "DEPOIS DESSA PRIMEIRA ACAO  •  siga o roteiro",
+        FONT_HEADING, 11, ACCENT_400, bold=True)
+    next_actions = [
+        ("Slide 18", "Roteiro completo de 6 passos (5 min ate 1 semana)"),
+        ("Slide 19", "Marcos D1 → D30 + 6 anti-padroes a evitar"),
+        ("Slide 17", "Cheat sheet imprimivel com os 9 agentes"),
+        ("Slide 16", "Decision tree quando voce nao souber qual acionar"),
     ]
-    for i, (num, title, desc) in enumerate(steps):
-        y = Inches(3.0 + i * 1.0)
-        rounded(s, Inches(1.2), y, Inches(0.7), Inches(0.7), ACCENT_500)
-        txt(s, Inches(1.2), y + Inches(0.18), Inches(0.7), Inches(0.4),
-            num, FONT_MONO, 16, PRIMARY_950, bold=True, align=PP_ALIGN.CENTER)
-        txt(s, Inches(2.1), y + Inches(0.1), Inches(11), Inches(0.4),
-            title, FONT_HEADING, 16, WHITE, bold=True)
-        txt(s, Inches(2.1), y + Inches(0.45), Inches(10.5), Inches(0.5),
-            desc, FONT_BODY, 11, NEUTRAL_300, spacing=14)
+    for i, (ref, desc) in enumerate(next_actions):
+        y = Inches(5.1 + i * 0.4)
+        txt(s, Inches(1.4), y, Inches(1.3), Inches(0.3),
+            ref, FONT_MONO, 11, ACCENT_500, bold=True)
+        txt(s, Inches(2.7), y, Inches(10), Inches(0.3),
+            desc, FONT_BODY, 12, NEUTRAL_300)
 
     txt(s, Inches(1.2), Inches(6.85), Inches(11), Inches(0.3),
         "Manual completo: github.com/byfabioviana/agent-study-assistant",
         FONT_MONO, 10, ACCENT_400)
     txt(s, Inches(1.2), Inches(7.15), Inches(11), Inches(0.3),
-        "Verticalis AI Journey  •  Education  •  Maio 2026  •  v1.0",
+        "Verticalis AI Journey  •  Education  •  Maio 2026  •  v1.1",
         FONT_MONO, 9, NEUTRAL_500, align=PP_ALIGN.RIGHT)
 
 
@@ -1038,7 +1200,9 @@ s14_ritmo_sprint(14)
 s15_ritmo_submissao(15)
 s16_decision_tree(16)
 s17_cheatsheet(17)
-s18_closing(18)
+s18_roteiro_inicio(18)
+s19_marcos_antipadrao(19)
+s18_closing(20)
 
 out = ROOT / "docs" / "manual-uso-agentes.pptx"
 prs.save(str(out))
